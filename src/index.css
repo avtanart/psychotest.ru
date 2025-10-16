@@ -1,13 +1,199 @@
+/* Импорт шрифта Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #101418;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+p {
+  margin-top: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #136aec;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #5a97f2;
+}
+
+/* Дизайн-система: Фоновые цвета */
+.bg__default {
+  background: #ffffff;
+}
+
+.bg__secondary {
+  background: #eff0f1;
+}
+
+.bg__border {
+  background: #c8ccd0;
+}
+
+.bg__warning {
+  background: #f28900;
+}
+
+.bg__warninglight {
+  background: #fef6ec;
+}
+
+.bg__error {
+  background: #f23000;
+}
+
+.bg__errorlight {
+  background: #feefec;
+}
+
+.bg__paranja {
+  background: rgba(15, 23, 35, 0.7);
+}
+
+/* Дизайн-система: Типографические цвета */
+.typo__primary {
+  color: #101418;
+}
+
+.typo__secondary {
+  color: #757d8a;
+}
+
+.typo__ghost {
+  color: #acb1b9;
+}
+
+.typo__white {
+  color: #ffffff;
+}
+
+/* Дизайн-система: Цвета контролов */
+.controls__bgdefault {
+  background: #136aec;
+}
+
+.controls__bgghost {
+  background: #f3f5f8;
+}
+
+.controls__typo {
+  color: #757d8a;
+}
+
+.controls__typoactive {
+  color: #101418;
+}
+
+.controls__bgborder {
+  background: #c8ccd0;
+}
+
+.controls__bgborderhover {
+  background: #5a97f2;
+}
+
+.controls__bgborderfocus {
+  background: #136aec;
+}
+
+/* Дизайн-система: Кнопки */
+.controlprimary__bg {
+  background: #136aec;
+}
+
+.controlprimary__bghover {
+  background: #5a97f2;
+}
+
+.controlprimary__typo {
+  color: #ffffff;
+}
+
+.controlghost__bg {
+  background: #eff2f5;
+}
+
+.controlghost__bghover {
+  background: #dadfe7;
+}
+
+.controlghost__typo {
+  color: #757d8a;
+}
+
+.controldisable__bg {
+  background: #eceff4;
+}
+
+.controldisable__typo {
+  color: #9dadbe;
+}
+
+/* Дизайн-система: Типографика */
+.Header {
+  font-size: 24px;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.textnormal {
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.textnormalmedium {
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.textnormalsemibold {
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.textnormalbold {
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.textsmall {
+  font-size: 12px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  line-height: 16px;
 }

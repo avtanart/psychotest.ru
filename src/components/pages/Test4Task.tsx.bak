@@ -1,0 +1,336 @@
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import Button from '../common/Button';
+import Snackbar from '../common/Snackbar';
+import Tooltip from '../common/Tooltip';
+import { Test4AnswerOption } from '../../types/test4Types';
+import { setAnswer, setStartTime, completeTest } from '../../store/slices/test4Slice';
+import { submitAllData } from '../../utils/api';
+
+const TaskContainer = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+`;
+
+const Title = styled.h1`
+  font-size: 1.8rem;
+  color: #333333;
+  margin: 0;
+`;
+
+const TestCounter = styled.div`
+  font-size: 1rem;
+  color: #666666;
+`;
+
+const Instruction = styled.p`
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+`;
+
+const QuestionsContainer = styled.div`
+  margin-top: 2rem;
+`;
+
+const QuestionItem = styled.div`
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+`;
+
+const QuestionText = styled.div`
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
+`;
+
+const AnswersContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  position: relative;
+`;
+
+const AnswerButton = styled.button<{ $isSelected: boolean }>`
+  flex: 1;
+  min-width: 120px;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: ${props => props.$isSelected ? '#e6f7ff' : '#fff'};
+  border: 1px solid ${props => props.$isSelected ? '#1890ff' : '#d9d9d9'};
+  font-size: 0.9rem;
+  
+  &:hover {
+    border-color: #1890ff;
+  }
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+`;
+
+const Test4Task: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [answers, setAnswers] = useState<Record<string, Test4AnswerOption>>({});
+  const [snackbar, setSnackbar] = useState({
+    message: '',
+    type: 'info' as 'success' | 'error' | 'info',
+    isOpen: false
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
+  
+  // Получаем данные профиля и ID пользователя
+  const userId = useAppSelector(state => state.session.userId);
+  const profile = useAppSelector(state => state.profile);
+  
+  // Устанавливаем время начала теста
+  useEffect(() => {
+    dispatch(setStartTime());
+  }, [dispatch]);
+
+  // Список вопросов для теста 4
+  const questions = [
+    { id: 'test4_q1', text: 'У меня есть люди, которые в мое отсутствие могут позаботиться о моей квартире (цветах, домашних животных)' },
+    { id: 'test4_q2', text: 'Есть люди, которые принимают меня таким, какой я есть' },
+    { id: 'test4_q3', text: 'Моим друзьям и родственникам важно мое мнение по определенным вопросам' },
+    { id: 'test4_q4', text: 'Мне хотелось бы больше внимания и понимания от других людей' },
+    { id: 'test4_q5', text: 'Я знаю одного человека, которому я могу полностью довериться и с его помощью решить любой вопрос' },
+    { id: 'test4_q6', text: 'Я могу по необходимости одолжить у кого-то бытовой прибор или продукты' },
+    { id: 'test4_q7', text: 'У меня есть друзья (родственники), которые умеют хорошо слушать, когда мне хочется выговориться' },
+    { id: 'test4_q8', text: 'У меня нет никого, к кому бы я мог запросто и охотно зайти' },
+    { id: 'test4_q9', text: 'У меня есть друзья (родственники), которые меня запросто обнимают' },
+    { id: 'test4_q10', text: 'Если я болен, я могу без колебаний попросить друзей или родственников купить важные для меня вещи, например, еду' },
+    { id: 'test4_q11', text: 'Если я сильно подавлен, я знаю – к кому мне пойти' },
+    { id: 'test4_q12', text: 'Я часто чувствую себя аутсайдером (неудачником)' },
+    { id: 'test4_q13', text: 'Есть люди, которые делят со мной горе и радость' },
+    { id: 'test4_q14', text: 'С некоторыми друзьями (родственниками) я могу полностью расслабиться' },
+    { id: 'test4_q15', text: 'У меня есть близкие люди, рядом с которыми я очень хорошо себя чувствую' },
+    { id: 'test4_q16', text: 'У меня достаточно людей, которые по-настоящему мне помогут, если я не буду знать, как быть дальше' },
+    { id: 'test4_q17', text: 'Есть люди, которые считаются со мной, даже когда я делаю ошибки' },
+    { id: 'test4_q18', text: 'Мне бы хотелось больше безопасности и близости с другими людьми' },
+    { id: 'test4_q19', text: 'Есть достаточно людей, с которыми у меня хорошие отношения' },
+    { id: 'test4_q20', text: 'Есть группа людей (компания), к которой я себя отношу' },
+    { id: 'test4_q21', text: 'С помощью друзей и знакомых я часто получаю полезную информацию (например, о хорошем враче и т. п.)' },
+    { id: 'test4_q22', text: 'Есть люди, которым я могу открыть все мои чувства, не ощущая при этом неудобства' }
+  ];
+
+  // Обработчик изменения ответа
+  const handleAnswerChange = (questionId: string, value: Test4AnswerOption) => {
+    // Обновляем локальное состояние
+    setAnswers(prev => ({
+      ...prev,
+      [questionId]: value
+    }));
+    
+    // Обновляем состояние в Redux
+    const questionNumber = parseInt(questionId.replace('test4_q', ''));
+    dispatch(setAnswer({ questionId: questionNumber, answer: value }));
+  };
+
+  // Проверка заполнения всех вопросов
+  const validateAnswers = () => {
+    const unansweredQuestions = questions.filter(q => !answers[q.id]);
+    return unansweredQuestions.length === 0;
+  };
+
+  // Обработчик нажатия кнопки "Проверить"
+  const handleCheck = async () => {
+    setShowErrors(true);
+    
+    if (!validateAnswers()) {
+      setSnackbar({
+        message: `Пожалуйста, ответьте на все вопросы (${questions.filter(q => !answers[q.id]).length} без ответа)`,
+        type: 'error',
+        isOpen: true
+      });
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      // Завершаем тест и записываем время окончания
+      dispatch(completeTest());
+      
+      // Сохраняем ответы в localStorage для использования в submitAllData
+      localStorage.setItem('test4', JSON.stringify({
+        answers: Object.keys(answers).reduce((acc, key) => {
+          acc[key] = answers[key];
+          return acc;
+        }, {} as Record<string, Test4AnswerOption>)
+      }));
+      
+      // Отправляем все данные (включая профиль и тесты) в Google Sheets
+      const result = await submitAllData(userId, profile);
+      
+      setSnackbar({
+        message: 'Данные успешно проверены',
+        type: 'success',
+        isOpen: true
+      });
+    } catch (error) {
+      setSnackbar({
+        message: 'Ошибка при отправке данных',
+        type: 'error',
+        isOpen: true
+      });
+      console.error('Ошибка при отправке данных теста 4:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Обработчик нажатия кнопки "Следующий тест"
+  const handleNext = async () => {
+    setShowErrors(true);
+    
+    if (!validateAnswers()) {
+      setSnackbar({
+        message: `Пожалуйста, ответьте на все вопросы (${questions.filter(q => !answers[q.id]).length} без ответа)`,
+        type: 'error',
+        isOpen: true
+      });
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      // Завершаем тест и записываем время окончания
+      dispatch(completeTest());
+      
+      // Сохраняем ответы в localStorage для использования в submitAllData
+      localStorage.setItem('test4', JSON.stringify({
+        answers: Object.keys(answers).reduce((acc, key) => {
+          acc[key] = answers[key];
+          return acc;
+        }, {} as Record<string, Test4AnswerOption>)
+      }));
+      
+      // Обновляем профиль в localStorage для гарантии актуальности данных
+      localStorage.setItem('profile', JSON.stringify(profile));
+      
+      // Отправляем все данные в Google Sheets
+      await submitAllData(userId, profile);
+      
+      // Переходим к следующему тесту
+      navigate('/test-intro/test5');
+    } catch (error) {
+      setSnackbar({
+        message: 'Ошибка при отправке данных',
+        type: 'error',
+        isOpen: true
+      });
+      console.error('Ошибка при отправке данных теста 4:', error);
+      setIsSubmitting(false);
+    }
+  };
+  
+  // Обработчик нажатия кнопки "Пропустить"
+  const handleSkip = () => {
+    navigate('/test-intro/test5');
+  };
+
+  return (
+    <TaskContainer>
+      <HeaderContainer>
+        <Title>Тест №4</Title>
+        <TestCounter>Пройдено тестов: 3 из 7</TestCounter>
+      </HeaderContainer>
+      
+      <Instruction>
+        Ответьте на следующие вопросы, выбирая тот ответ, который наилучшим образом отражает ваше мнение.
+      </Instruction>
+      
+      <QuestionsContainer>
+        {questions.map((question, index) => {
+          const questionNumber = index + 1;
+          const isAnswered = !!answers[question.id];
+          
+          return (
+            <QuestionItem key={question.id}>
+              <QuestionText>{questionNumber}. {question.text}</QuestionText>
+              <AnswersContainer>
+                {Object.values(Test4AnswerOption).map((option) => (
+                  <AnswerButton
+                    key={option}
+                    $isSelected={answers[question.id] === option}
+                    onClick={() => handleAnswerChange(question.id, option)}
+                  >
+                    {option}
+                  </AnswerButton>
+                ))}
+                
+                {showErrors && !isAnswered && (
+                  <Tooltip 
+                    text="Выберите вариант ответа" 
+                    $isVisible={true} 
+                    $isError={true} 
+                  />
+                )}
+              </AnswersContainer>
+            </QuestionItem>
+          );
+        })}
+      </QuestionsContainer>
+      
+      <ButtonsContainer>
+        <Button 
+          $variant="secondary"
+          onClick={handleCheck}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Проверка...' : 'Проверить'}
+        </Button>
+        <Button 
+          $variant="secondary"
+          onClick={handleSkip}
+          disabled={isSubmitting}
+        >
+          Пропустить
+        </Button>
+        <Button 
+          $variant="primary"
+          onClick={handleNext}
+          disabled={isSubmitting}
+        >
+          Следующий тест
+        </Button>
+      </ButtonsContainer>
+      
+      <Snackbar
+        message={snackbar.message}
+        type={snackbar.type}
+        isOpen={snackbar.isOpen}
+        onClose={() => setSnackbar(prev => ({ ...prev, isOpen: false }))}
+        autoHideDuration={5000}
+      />
+    </TaskContainer>
+  );
+};
+
+export default Test4Task;

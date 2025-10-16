@@ -1,46 +1,110 @@
-# Getting Started with Create React App
+# Психологические тесты
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Веб-приложение для прохождения психологических тестов с сохранением результатов в Google Sheets.
 
-## Available Scripts
+## Описание проекта
 
-In the project directory, you can run:
+Приложение позволяет пользователям проходить серию из 7 психологических тестов. Результаты сохраняются в Google Sheets и отправляются на email пользователя.
 
-### `npm start`
+## Основные функции
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Главная страница с приветствием и описанием
+- Анкета пользователя с 8 полями для сбора демографической информации
+- 7 последовательных психологических тестов с различными типами вопросов
+- Сохранение прогресса в LocalStorage для возможности продолжить позже
+- Форма ввода email для получения результатов
+- Отправка результатов в Google Sheets и на email пользователя
+- Страница благодарности после завершения
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Технический стек
 
-### `npm test`
+- **Frontend**: React, TypeScript, React Router, Redux Toolkit, Styled Components
+- **Backend**: Google Apps Script
+- **Хранение данных**: LocalStorage, Google Sheets
+- **Интеграции**: Google Sheets API, Email отправка
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Структура проекта
 
-### `npm run build`
+```
+opros-v-3-0/
+├── public/
+│   ├── index.html
+│   └── assets/
+├── src/
+│   ├── components/
+│   │   ├── common/      # Общие компоненты (кнопки, формы и т.д.)
+│   │   ├── layout/      # Компоненты разметки (шапка, подвал)
+│   │   ├── pages/       # Страницы приложения
+│   │   └── tests/       # Компоненты для тестов
+│   ├── store/           # Redux хранилище
+│   ├── utils/           # Утилиты и вспомогательные функции
+│   ├── data/            # Данные тестов
+│   ├── hooks/           # Пользовательские хуки
+│   ├── types/           # TypeScript типы
+│   ├── App.tsx
+│   └── index.tsx
+├── google-apps-script/  # Код для Google Apps Script
+└── package.json
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Документация
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [IMPLEMENTATION_DETAILS.md](./IMPLEMENTATION_DETAILS.md) - Подробное описание реализации
+- [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) - Руководство по развертыванию
+- [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) - Руководство по устранению неполадок
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - Архитектура проекта
+- [API_DOCUMENTATION.md](./API_DOCUMENTATION.md) - Документация API
+- [DATA_STRUCTURE.md](./DATA_STRUCTURE.md) - Структура данных
+- [UI_DESIGN.md](./UI_DESIGN.md) - Дизайн пользовательского интерфейса
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Установка и запуск
 
-### `npm run eject`
+### Требования
+- Node.js 16.x или выше
+- npm 7.x или выше
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Установка зависимостей
+```bash
+npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Запуск в режиме разработки
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Сборка для продакшена
+```bash
+npm run build
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Настройка Google Apps Script
 
-## Learn More
+1. Создайте новую Google таблицу
+2. Откройте редактор скриптов (Расширения > Apps Script)
+3. Скопируйте код из файла `google-apps-script/Code.gs` в редактор
+4. Замените значения констант `API_KEY` и `SHEET_ID` на свои
+5. Опубликуйте скрипт как веб-приложение
+6. Скопируйте URL веб-приложения и вставьте его в файл `src/utils/api.ts`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Особенности реализации
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Сохранение прогресса**: Автоматическое сохранение ответов и возможность продолжить тестирование с места остановки
+- **Различные типы вопросов**: Поддержка одиночного выбора, множественного выбора, шкалы, текстового ввода и матрицы
+- **Валидация данных**: Проверка заполнения всех обязательных полей и корректности ввода
+- **Адаптивный дизайн**: Корректное отображение на устройствах с разными размерами экрана
+
+## Известные проблемы и ограничения
+
+- Для корректной работы с Google Apps Script необходимо настроить CORS
+- Существуют ограничения Google Apps Script на количество запросов в день
+- Для длительных сессий может потребоваться дополнительная настройка
+
+## Авторы
+
+- Таня (клинический психолог) - Идея и содержание тестов
+- [Ваше имя] - Разработка
+
+## Лицензия
+
+MIT
