@@ -170,7 +170,7 @@ const CompletionModal: React.FC<CompletionModalProps> = ({
             <div>
               <ImageContainer>
                 <ModalImage 
-                  src="/LastPageImage.png" 
+                  src={`${process.env.PUBLIC_URL}/LastPageImage.png`} 
                   alt="Completion" 
                 />
               </ImageContainer>
@@ -211,7 +211,7 @@ const CompletionModal: React.FC<CompletionModalProps> = ({
           <>
             <ImageContainer>
               <ModalImage 
-                src="/LastPageImage.png" 
+                src={`${process.env.PUBLIC_URL}/LastPageImage.png`}
                 alt="Completion" 
               />
             </ImageContainer>

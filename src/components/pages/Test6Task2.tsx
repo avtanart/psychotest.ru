@@ -263,8 +263,8 @@ const Test6Task2: React.FC = () => {
   return (
     <TaskContainer>
       <HeaderContainer>
-        <Title>Тест №6</Title>
-        <TestCounter>Пройдено тестов: 5 из 7</TestCounter>
+        <Title>Блок №6</Title>
+        <TestCounter>Блоков пройдено: 5 из 7</TestCounter>
       </HeaderContainer>
 
       <Instruction>
@@ -321,7 +321,7 @@ const Test6Task2: React.FC = () => {
           disabled={isSubmitting}
           iconRight="arrow-right.svg"
         >
-          {isSubmitting ? 'Отправка...' : 'Следующий тест'}
+          {isSubmitting ? 'Отправка...' : 'Следующий блок'}
         </CustomButton>
       </ButtonsContainer>
 

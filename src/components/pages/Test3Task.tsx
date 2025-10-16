@@ -261,8 +261,8 @@ const Test3Task: React.FC = () => {
   return (
     <TaskContainer>
       <HeaderContainer>
-        <Title>Тест №3</Title>
-        <TestCounter>Пройдено тестов: 2 из 7</TestCounter>
+        <Title>Блок №3</Title>
+        <TestCounter>Блоков пройдено: 2 из 7</TestCounter>
       </HeaderContainer>
       
       <Instruction>
@@ -312,7 +312,7 @@ const Test3Task: React.FC = () => {
           disabled={isSubmitting}
           iconRight="arrow-right.svg"
         >
-          Следующий тест
+          Следующий блок
         </CustomButton>
       </ButtonsContainer>
       

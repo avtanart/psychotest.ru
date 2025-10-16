@@ -4,7 +4,7 @@ import TestIntro from '../tests/TestIntro';
 
 const Test1Intro: React.FC = () => {
   const navigate = useNavigate();
-  const title = 'Тест №1';
+  const title = 'Блок №1';
   const subtitle = 'Задание 1';
   const description = `Далее Вам будут предложены 25 пар противоположных по смыслу прилагательных, например, «белое – черное». Проанализировав каждую пару, определите, какое из двух прилагательных точнее описывает ваше НАСТОЯЩЕЕ, то, как вы его интуитивно воспринимаете.
 

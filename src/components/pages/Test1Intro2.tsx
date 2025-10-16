@@ -70,8 +70,8 @@ const Test1Intro2: React.FC = () => {
   return (
     <TestIntroContainer>
       <HeaderContainer>
-        <Title>Тест №1</Title>
-        <TestCounter>Пройдено тестов: {completedTests} из 7</TestCounter>
+        <Title>Блок №1</Title>
+        <TestCounter>Блоков пройдено: {completedTests} из 7</TestCounter>
       </HeaderContainer>
       
       <SubTitle>Задание 2</SubTitle>

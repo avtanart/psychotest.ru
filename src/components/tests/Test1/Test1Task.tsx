@@ -290,8 +290,8 @@ const Test1Task: React.FC<Test1TaskProps> = ({ taskId }) => {
   return (
     <TaskContainer>
       <HeaderContainer>
-        <Title>Тест №1</Title>
-        <TestCounter>Пройдено тестов: {completedTests} из 7</TestCounter>
+        <Title>Блок №1</Title>
+        <TestCounter>Блоков пройдено: {completedTests} из 7</TestCounter>
       </HeaderContainer>
       
       <TaskTitle>{taskTitles[taskId]}</TaskTitle>
@@ -315,7 +315,7 @@ const Test1Task: React.FC<Test1TaskProps> = ({ taskId }) => {
           onClick={handleContinue}
           iconRight="arrow-right.svg"
         >
-          {taskId === 'task3' ? 'Следующий тест' : 'Продолжить'}
+          {taskId === 'task3' ? 'Следующий блок' : 'Продолжить'}
         </CustomButton>
       </ButtonContainer>
       

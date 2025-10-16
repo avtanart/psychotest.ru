@@ -231,8 +231,8 @@ const Test2Task: React.FC<Test2TaskProps> = ({
   return (
     <TaskContainer>
       <HeaderContainer>
-        <Title>Тест №2</Title>
-        <TestCounter>Пройдено тестов: {completedTests} из 7</TestCounter>
+        <Title>Блок №2</Title>
+        <TestCounter>Блоков пройдено: {completedTests} из 7</TestCounter>
       </HeaderContainer>
       
       <TaskTitle>{title}</TaskTitle>
@@ -268,7 +268,7 @@ const Test2Task: React.FC<Test2TaskProps> = ({
           onClick={handleContinue}
           iconRight="arrow-right.svg"
         >
-          {isLastTask ? 'Следующий тест' : 'Продолжить'}
+          {isLastTask ? 'Следующий блок' : 'Продолжить'}
         </CustomButton>
       </ButtonContainer>
       

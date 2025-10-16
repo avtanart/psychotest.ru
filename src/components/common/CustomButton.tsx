@@ -134,7 +134,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     >
       {iconLeft && (
         <IconContainer $disabled={disabled} $variant={variant}>
-          <img src={`/${iconLeft}`} alt="" />
+          <img src={`${process.env.PUBLIC_URL}/${iconLeft}`} alt="" />
         </IconContainer>
       )}
       
@@ -142,7 +142,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       
       {iconRight && (
         <IconContainer $disabled={disabled} $variant={variant}>
-          <img src={`/${iconRight}`} alt="" />
+          <img src={`${process.env.PUBLIC_URL}/${iconRight}`} alt="" />
         </IconContainer>
       )}
     </ButtonContainer>

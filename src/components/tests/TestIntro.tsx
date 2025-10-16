@@ -72,7 +72,7 @@ const TestIntro: React.FC<TestIntroProps> = ({
     <TestIntroContainer>
       <HeaderContainer>
         <Title>{title}</Title>
-        <TestCounter>Пройдено тестов: {completedTests} из 7</TestCounter>
+        <TestCounter>Блоков пройдено: {completedTests} из 7</TestCounter>
       </HeaderContainer>
       
       <SubTitle>{subtitle}</SubTitle>

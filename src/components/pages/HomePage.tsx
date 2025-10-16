@@ -43,7 +43,7 @@ const Description = styled.p`
   font-weight: ${theme.typography.textNormal.fontWeight};
   line-height: ${theme.typography.textNormal.lineHeight};
   color: ${theme.colors.typography.primary};
-  margin: 0 0 24px 0;
+  margin: 0 0 8px 0;
 `;
 
 const InfoBox = styled.div`
@@ -146,12 +146,11 @@ const HomePage: React.FC = () => {
 
   return (
     <HomeContainer>
-      <Image src="/FirstPageImage.png" alt="Таня" />
-      <Title>Привет! Меня зовут Таня, я учусь на клинического психолога</Title>
-      <Description>
-        Я очень рада, что вы согласились пройти мой опрос, который нужен мне, чтобы написать диплом. 
-        На заполнение опроса у вас уйдет примерно 30 минут.
-      </Description>
+      <Image src={`${process.env.PUBLIC_URL}/FirstPageImage.png`} alt="Таня" />
+      <Title>Здравствуйте! Меня зовут Татьяна</Title>
+      <Description>Я студентка ПСПбГМУ имени И. П. Павлова по направлению «Клиническая психология».</Description>
+      <Description>Спасибо, что согласились принять участи в моем исследовании, необходимом для дипломной работы.</Description>
+      <Description>Заполнение анкеты займет примерно 30 минут.</Description>
       
       <InfoBox>
         <WarningIcon>
@@ -163,9 +162,7 @@ const HomePage: React.FC = () => {
         </WarningIcon>
         <InfoContent>
           <InfoTitle>Важно!</InfoTitle>
-          <InfoText>
-            При заполнении опроса внимательно читайте вводную часть и задание, чтобы ваши результаты были релевантными.
-          </InfoText>
+          <InfoText>Внимательно читайте инструкции к заданиям, чтобы собранные данные были релевантными.</InfoText>
         </InfoContent>
       </InfoBox>
       

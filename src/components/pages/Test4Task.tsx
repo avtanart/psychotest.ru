@@ -248,8 +248,8 @@ const Test4Task: React.FC = () => {
   return (
     <TaskContainer>
       <HeaderContainer>
-        <Title>Тест №4</Title>
-        <TestCounter>Пройдено тестов: 3 из 7</TestCounter>
+        <Title>Блок №4</Title>
+        <TestCounter>Блоков пройдено: 3 из 7</TestCounter>
       </HeaderContainer>
       
       <Instruction>

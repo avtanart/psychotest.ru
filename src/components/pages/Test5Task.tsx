@@ -359,8 +359,8 @@ const Test5Task: React.FC<Test5TaskProps> = ({ taskId }) => {
   return (
     <TaskContainer>
       <HeaderContainer>
-        <Title>Тест №5</Title>
-        <TestCounter>Пройдено тестов: 4 из 7</TestCounter>
+        <Title>Блок №5</Title>
+        <TestCounter>Блоков пройдено: 4 из 7</TestCounter>
       </HeaderContainer>
 
       <InstructionText>
